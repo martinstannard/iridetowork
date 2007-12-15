@@ -1,0 +1,32 @@
+.dry_scaffold
+  .dry_scaffold_header
+    %h2 riders
+    .actions
+      .create= link_to 'New rider', :action => 'new' 
+  %table
+    %thead
+      %tr
+        - for column in Rider.content_columns 
+          %th
+            = column.human_name 
+    %tbody
+      - for rider in @riders
+        .row
+          %tr{ :class => cycle('','even')}
+            - for column in Rider.content_columns
+              %td
+                =h Rider.send(column.name)
+            %td
+              .actions
+                = link_to 'Show', :action => 'show', :id => rider 
+                \|
+                = link_to 'Edit', :action => 'edit', :id => rider
+                \|
+                = link_to 'Destroy', { :action => 'destroy', :id => rider }, :confirm => 'Are you sure?', :method => :post
+  
+  = link_to 'Previous page', { :page => @rider_pages.current.previous } if @rider_pages.current.previous 
+  = link_to 'Next page', { :page => @rider_pages.current.next } if @rider_pages.current.next  
+  
+  %br/
+
+

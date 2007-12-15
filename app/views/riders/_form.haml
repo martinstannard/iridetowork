@@ -1,0 +1,17 @@
+= error_messages_for 'rider' 
+
+<!--[form:rider]-->
+.row
+  .form_element_left
+    %label{:for => "rider_name"} Name
+  .form_element_right
+    = text_field 'rider', 'name' 
+
+.row
+  .form_element_left
+    %label{:for => "rider_description"} Description
+  .form_element_right
+    = text_area 'rider', 'description' 
+
+
+<!--[eoform:rider]-->

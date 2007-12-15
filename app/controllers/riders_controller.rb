@@ -4,7 +4,7 @@ class RidersController < ApplicationController
   
   # Protect these actions behind an admin login
   # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
-  before_filter :find_rider, :only => [:suspend, :unsuspend, :destroy, :purge]
+  before_filter :find_rider, :only => [:show, :suspend, :unsuspend, :destroy, :purge]
   
 
   # render new.rhtml
@@ -54,6 +54,13 @@ class RidersController < ApplicationController
   def purge
     @rider.destroy
     redirect_to riders_path
+  end
+  
+  def index
+    @riders = Rider.paginate :order => 'created_at', :page => params[:page]
+  end
+  
+  def show
   end
 
 protected
