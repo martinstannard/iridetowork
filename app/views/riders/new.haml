@@ -1,12 +1,12 @@
 = error_messages_for :rider 
-% form_for :rider, :url = riders_path do |f|
+- form_for :rider, :url => riders_path do |f|
   %p
     %label{:for => "login"} Login:
     %br
     = f.text_field :login 
 
   %p
-    %label{ :for=>"email"} Email:
+    %label{ :for => "email"} Email:
     %br
     = f.text_field :email
 
