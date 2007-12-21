@@ -1,8 +1,24 @@
 
-%h2 Add rider
-
 - form_for :rider, :url => riders_path do |f|
   %fieldset
+    = error_messages_for 'rider'
+    %p
+      %label{:for => "Name"} My name is
+      %br
+      = f.text_field :name
+
+    %p
+      .route
+        %p and I ride to work from 
+        %span{:style => "float:left"}
+          %label{:for => "from_zip"} (postcode)
+          %br
+          = f.text_field :from_zip
+        %span
+          %label{:for => "to_zip"} to
+          %br
+          = f.text_field :to_zip
+          %span .
     %p
       %label{:for => "login"} Login:
       %br
@@ -17,11 +33,6 @@
       %label{:for => "password"} Password:
       %br
       = f.password_field :password
-
-    %p
-      %label{:for => "password_confirmation"} Confirm Password:
-      %br
-      = f.password_field :password_confirmation
 
     %p
       = submit_tag 'Sign up'

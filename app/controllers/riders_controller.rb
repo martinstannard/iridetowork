@@ -18,12 +18,17 @@ class RidersController < ApplicationController
     # uncomment at your own risk
     # reset_session
     @rider = Rider.new(params[:rider])
+    route = Route.new(:rider => @rider)
+    route.from_zip = params[:rider][:from_zip]
+    route.to_zip = params[:rider][:to_zip]
+    @rider.routes << route
+
     raise ActiveRecord::RecordInvalid.new(@rider) unless @rider.valid?
     @rider.register!
     self.current_rider = @rider
     redirect_back_or_default('/')
     flash[:notice] = "Thanks for signing up!"
-  rescue ActiveRecord::RecordInvalid
+  rescue ActiveRecord::RecordInvalid => e
     render :action => 'new'
   end
 

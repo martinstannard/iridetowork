@@ -1,0 +1,14 @@
+!!! Strict
+%html{:xmlns =>'http://www.w3.org/1999/xhtml', 'xml:lang' => 'en', :lang => 'en'}
+  %head
+    %meta{'http-equiv' => 'Content-Type', :content => 'text/html; charset=utf-8'}/
+    %title= "iRideToWork - : #{yield(:title) || 'iRideToWork'}"
+    = stylesheet_link_tag "application.css"
+    = javascript_include_tag :defaults
+  %body{:id => @section}
+    #header
+      %img{:src => '/images/iridetowork.png', :alt => 'iRideToWork - you should too.', :height => '100px' }/
+    #page
+      #content
+        = yield
+  #footer

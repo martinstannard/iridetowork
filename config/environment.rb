@@ -54,6 +54,7 @@ Rails::Initializer.run do |config|
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
   config.active_record.observers = :rider_observer 
+#  Geocode.geocoder = Graticule.service(:google).new 'ABQIAAAAipaSu6XoC3p3mmpwGS3yehRxurL5KuPUZfvYKADJxVxIw4K_IhTVpcW_xd7j3Z_drQ-Y1P5ypUc8cg'
 
   # Make Active Record use UTC-base instead of local time
   # config.active_record.default_timezone = :utc

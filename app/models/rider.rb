@@ -22,10 +22,10 @@ require 'digest/sha1'
 class Rider < ActiveRecord::Base
   # Virtual attribute for the unencrypted password
   attr_accessor :password
+  has_many      :routes
 
   validates_presence_of     :login, :email
   validates_presence_of     :password,                   :if => :password_required?
-  validates_presence_of     :password_confirmation,      :if => :password_required?
   validates_length_of       :password, :within => 4..40, :if => :password_required?
   validates_confirmation_of :password,                   :if => :password_required?
   validates_length_of       :login,    :within => 3..40
@@ -109,6 +109,14 @@ class Rider < ActiveRecord::Base
     self.remember_token_expires_at = nil
     self.remember_token            = nil
     save(false)
+  end
+
+  def from_zip
+      ## TODO: fix this
+  end
+  
+  def to_zip
+      ## TODO: fix this
   end
 
   protected
