@@ -2,12 +2,17 @@
 - to = @to
 
 #rider.confirm
-  Is this straight-line route correct?
+  I ride to work from
   %span{:id => "from"}
     = render :partial => 'location', :object => from
   to
   %span{:id => "to"}
     = render :partial => 'location', :object => to
+  %span
+    A straight-line distance of
+    %span.distance
+      = @route.fmt_distance
+    kilometers.
 
 .map#map_canvas{:width => 300, :height => 200}
 

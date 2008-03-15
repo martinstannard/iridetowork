@@ -12,7 +12,6 @@ class Route < ActiveRecord::Base
 
     def distance
         from.distance_to to
-
     end
 
     def fmt_distance

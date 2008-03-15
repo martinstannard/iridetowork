@@ -22,6 +22,23 @@ pre {
   font-size: 1em;
 }
 
+fieldset {
+    border: none;
+}
+
+input {
+    color: #999999;
+    font-family: helvetica, arial, sans-serif;
+    font-size: 18px;
+}
+
+.button {
+    font-size: 14px;
+    background-color: #0870C0;
+    color: white;
+    border: black 2px solid;
+}
+
 a { color: #4B4B4B; }
 a:visited { color: #4B4B4B; }
 a:hover { color: #E12A4F; }
@@ -59,6 +76,10 @@ h3 {
   margin: 0.5em 0 1em; padding: 0;
 }
 
+.subtle {
+    font: Helvetica,Arial,sans-serif;
+    color: #999999;
+}
 
 #sidebar {
   float: right;
@@ -71,6 +92,15 @@ h3 {
   background-color: #fff;
   color: #4B4B4B;
   border: 2px solid #BFBFBF;
+}
+
+
+.distance {
+    padding: 5px;
+    margin: 5px;
+    font-size: 14px;
+    background-color: #0870C0;
+    color: white;
 }
 
 .map {

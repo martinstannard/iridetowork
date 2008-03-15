@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
         h = geocode_hash(query)
         loc = Location.new h
         loc.query = query
-        loc.result = res
+        loc.result = h
         loc
     end
 

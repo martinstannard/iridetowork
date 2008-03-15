@@ -9,15 +9,16 @@ function initMap(fromId, toId, f_lat, f_lon, t_lat, t_lon) {
     var map = new google.maps.Map2($("map_canvas"));
     var from = new google.maps.LatLng(f_lat, f_lon);
     var to = new google.maps.LatLng(t_lat, t_lon);
-    map.setCenter(from, 12);
+    map.setCenter(from, 13);
     map.setMapType(G_HYBRID_MAP);
     map.addOverlay(createMarker(map, from, fromId));
     map.addOverlay(createMarker(map, to, toId));
-    map.addControl(new GSmallMapControl());
+    var topRight = new GControlPosition(G_ANCHOR_TOP_RIGHT, new GSize(10,10));
+    map.addControl(new GLargeMapControl(), topRight);
+    map.addControl(new GOverviewMapControl());
     //map.openInfoWindow(from, $(fromId).cloneNode(true));
-    
     addRoute(map, from, to);
-
+    
     return map;
 }
 
