@@ -8,11 +8,12 @@ class LocationController < ApplicationController
     end
 
     def save
+
       @location = Location.find(params[:location][:id])
-      @location.reset_cols
-      @location.update_attributes(params[:location])
-      @location = Location.find(params[:location][:id])
-      @location.geocode
+      
+      h = geocode_hash(params[:location][:query])
+      @location.update_attributes(h)
+      @location.save
       @route = Route.find(params[:route][:id])
       if (@route.distance > 50.0)
           logger.debug "Do you really ride: #{@route.fmt_distance}kms ?"

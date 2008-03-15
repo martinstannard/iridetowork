@@ -5,4 +5,5 @@ class Location < ActiveRecord::Base
     def ll
         "#{lat},#{lng}"
     end
+
 end

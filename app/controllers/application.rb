@@ -8,14 +8,18 @@ class ApplicationController < ActionController::Base
 
 
     def geocode(query) ## TODO: move this to a helper
-        res = MultiGeocoder.geocode(query)
-        h = res.to_hash
-        m = {:ll => '', :is_us? => ''}
-        h.delete_if {|key, value| m.has_key?(key)}
+        h = geocode_hash(query)
         loc = Location.new h
         loc.query = query
         loc.result = res
         loc
+    end
+
+    def geocode_hash(query)
+        res = MultiGeocoder.geocode(query)
+        h = res.to_hash
+        m = {:ll => '', :is_us? => ''}
+        h.delete_if {|key, value| m.has_key?(key)}
     end
 
   # See ActionController::RequestForgeryProtection for details
