@@ -1,0 +1,11 @@
+%span.location
+  - remote_form_for :location, location, :url => {:controller => 'location', :action => 'create'}, :update => location.id, :complete => "location.href = location.href;" do |f|
+    %fieldset
+      = error_messages_for 'location'
+      %p
+        = f.text_field :query, :size => 30, :maxlength => 60
+        = f.submit
+
+= location.full_address
+= location.precision
+= location.provider

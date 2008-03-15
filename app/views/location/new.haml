@@ -1,0 +1,19 @@
+- form_for :location, :url => {:action => "create"} do |f|
+  %fieldset
+    = error_messages_for 'location'
+    %p
+      %label{:for => "Street"} Street
+      %br
+      = f.text_field :street
+    %p
+      %label{:for => "City"} Location
+      %br
+      = f.text_field :locality
+    %p
+      %label{:for => "Post Code"} Post Code
+      %br
+      = f.text_field :postal_code
+
+    %p
+      = submit_tag 'Enter'
+

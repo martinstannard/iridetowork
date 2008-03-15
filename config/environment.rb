@@ -53,11 +53,58 @@ Rails::Initializer.run do |config|
 
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
-  config.active_record.observers = :rider_observer 
-#  Geocode.geocoder = Graticule.service(:google).new 'ABQIAAAAipaSu6XoC3p3mmpwGS3yehRxurL5KuPUZfvYKADJxVxIw4K_IhTVpcW_xd7j3Z_drQ-Y1P5ypUc8cg'
-
   # Make Active Record use UTC-base instead of local time
   # config.active_record.default_timezone = :utc
 end
+#Geocode.geocoder = Graticule.service(:google).new('ABQIAAAAipaSu6XoC3p3mmpwGS3yehRxurL5KuPUZfvYKADJxVxIw4K_IhTVpcW_xd7j3Z_drQ-Y1P5ypUc8cg')
+#Geocode.geocoder = Graticule.service(:yahoo).new('lwp5enzV34EAn2J5Q3jjEgOF9GQhLXkysnn4pJO6bPsg09xQLASZQluZvsPaf.bq5R0-')
+# These defaults are used in GeoKit::Mappable.distance_to and in acts_as_mappable
+GeoKit::default_units = :kilometers
+GeoKit::default_formula = :sphere
 
+# This is the timeout value in seconds to be used for calls to the geocoder web
+# services.  For no timeout at all, comment out the setting.  The timeout unit
+# is in seconds. 
+GeoKit::Geocoders::timeout = 10
 
+# These settings are used if web service calls must be routed through a proxy.
+# These setting can be nil if not needed, otherwise, addr and port must be 
+# filled in at a minimum.  If the proxy requires authentication, the username
+# and password can be provided as well.
+GeoKit::Geocoders::proxy_addr = nil
+GeoKit::Geocoders::proxy_port = nil
+GeoKit::Geocoders::proxy_user = nil
+GeoKit::Geocoders::proxy_pass = nil
+
+# This is your yahoo application key for the Yahoo Geocoder.
+# See http://developer.yahoo.com/faq/index.html#appid
+# and http://developer.yahoo.com/maps/rest/V1/geocode.html
+GeoKit::Geocoders::yahoo = 'lwp5enzV34EAn2J5Q3jjEgOF9GQhLXkysnn4pJO6bPsg09xQLASZQluZvsPaf.bq5R0-'
+    
+# This is your Google Maps geocoder key. 
+# See http://www.google.com/apis/maps/signup.html
+# and http://www.google.com/apis/maps/documentation/#Geocoding_Examples
+GeoKit::Geocoders::google = 'ABQIAAAAipaSu6XoC3p3mmpwGS3yehRxurL5KuPUZfvYKADJxVxIw4K_IhTVpcW_xd7j3Z_drQ-Y1P5ypUc8cg'
+    
+# This is your username and password for geocoder.us.
+# To use the free service, the value can be set to nil or false.  For 
+# usage tied to an account, the value should be set to username:password.
+# See http://geocoder.us
+# and http://geocoder.us/user/signup
+GeoKit::Geocoders::geocoder_us = false 
+
+# This is your authorization key for geocoder.ca.
+# To use the free service, the value can be set to nil or false.  For 
+# usage tied to an account, set the value to the key obtained from
+# Geocoder.ca.
+# See http://geocoder.ca
+# and http://geocoder.ca/?register=1
+GeoKit::Geocoders::geocoder_ca = false
+
+# This is the order in which the geocoders are called in a failover scenario
+# If you only want to use a single geocoder, put a single symbol in the array.
+# Valid symbols are :google, :yahoo, :us, and :ca.
+# Be aware that there are Terms of Use restrictions on how you can use the 
+# various geocoders.  Make sure you read up on relevant Terms of Use for each
+# geocoder you are going to use.
+GeoKit::Geocoders::provider_order = [:google,:yahoo]

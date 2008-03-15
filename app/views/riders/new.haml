@@ -11,29 +11,14 @@
       .route
         %p and I ride to work from 
         %span{:style => "float:left"}
-          %label{:for => "from_zip"} (postcode)
+          %label{:for => "from_query"} 
           %br
-          = f.text_field :from_zip
+          = f.text_field :to_query
         %span
-          %label{:for => "to_zip"} to
+          %label{:for => "to_query"} to
           %br
-          = f.text_field :to_zip
+          = f.text_field :from_query
           %span .
-    %p
-      %label{:for => "login"} Login:
-      %br
-      = f.text_field :login 
-
-    %p
-      %label{ :for => "email"} Email:
-      %br
-      = f.text_field :email
-
-    %p
-      %label{:for => "password"} Password:
-      %br
-      = f.password_field :password
-
     %p
       = submit_tag 'Sign up'
 

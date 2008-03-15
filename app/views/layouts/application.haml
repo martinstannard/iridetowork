@@ -1,13 +1,16 @@
 !!! Strict
-%html{:xmlns =>'http://www.w3.org/1999/xhtml', 'xml:lang' => 'en', :lang => 'en'}
+%html{:xmlns =>'http://www.w3.org/1999/xhtml', "xmlns:v"=>"urn:schemas-microsoft-com:vml", 'xml:lang' => 'en', :lang => 'en'}
+
   %head
     %meta{'http-equiv' => 'Content-Type', :content => 'text/html; charset=utf-8'}/
     %title= "iRideToWork - : #{yield(:title) || 'iRideToWork'}"
     = stylesheet_link_tag "application.css"
+    %script{:type=>"text/javascript", :src=>"http://www.google.com/jsapi?key=#{GeoKit::Geocoders::google}"}
     = javascript_include_tag :defaults
-  %body{:id => @section}
+  %body{:id => @section,  :onunload=>"GUnload()"}
     #header
-      %img{:src => '/images/iridetowork.png', :alt => 'iRideToWork - you should too.', :height => '100px' }/
+      %a{:href => "/"}
+        %img{:src => '/images/iridetowork.png', :alt => 'iRideToWork - you should too.', :height => '100px' }/
     #page
       #content
         = yield

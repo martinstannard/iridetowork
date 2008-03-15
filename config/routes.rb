@@ -32,9 +32,11 @@ ActionController::Routing::Routes.draw do |map|
                                      :unsuspend => :put,
                                      :purge     => :delete }
 
-  map.resource :session, :controller => 'sessions'
-
+  map.location 'location/:action/:id', :controller => 'location'
+  
   # Install the default routes as the lowest priority.
+  map.connect ':controller/:action/:id.:format'
+  map.connect ':controller/:action/:id'
+  map.connect ':controller/:action'
   map.connect '/', :controller => 'riders', :action => 'index'
-  #map.connect ':controller/:action/:id.:format'
 end

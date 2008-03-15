@@ -1,11 +1,6 @@
-class RidersController < ApplicationController
-  # Be sure to include AuthenticationSystem in Application Controller instead
-  include AuthenticatedSystem
-  
-  # Protect these actions behind an admin login
-  # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
-  before_filter :find_rider, :only => [:show, :suspend, :unsuspend, :destroy, :purge]
-  
+class RidersController < ApplicationController  
+
+  before_filter :find_rider, :except => [:index, :new, :create]
 
   # render new.rhtml
   def new
@@ -13,59 +8,57 @@ class RidersController < ApplicationController
 
   def create
     cookies.delete :auth_token
-    # protects against session fixation attacks, wreaks havoc with 
-    # request forgery protection.
-    # uncomment at your own risk
-    # reset_session
-    @rider = Rider.new(params[:rider])
-    route = Route.new(:rider => @rider)
-    route.from_zip = params[:rider][:from_zip]
-    route.to_zip = params[:rider][:to_zip]
-    @rider.routes << route
+    @rider = Rider.new(:login => params[:rider][:name])
+    country = 'AU' # TODO: geocode client's IP
+    from = geocode params[:rider][:from_query] + ", #{country}";
+    to = geocode params[:rider][:to_query] + ", #{country}";
+    check_address from
+    check_address to
 
-    raise ActiveRecord::RecordInvalid.new(@rider) unless @rider.valid?
-    @rider.register!
-    self.current_rider = @rider
-    redirect_back_or_default('/')
-    flash[:notice] = "Thanks for signing up!"
+    if (!@rider.save)
+        logger.debug "Could not save rider: #{@rider.id}"
+        flash[:notice] = "Could not save rider: #{@rider}"
+        render :action => :new
+    end
+    
+    route = Route.new :from_location_id => from.id, :to_location_id => to.id, :rider_id => @rider.id
+    route.save
+    redirect_to :controller => 'route', :action => 'confirm', :id => route
+    
   rescue ActiveRecord::RecordInvalid => e
     render :action => 'new'
   end
 
-  def activate
-    self.current_rider = params[:activation_code].blank? ? :false : Rider.find_by_activation_code(params[:activation_code])
-    if logged_in? && !current_rider.active?
-      current_rider.activate!
-      flash[:notice] = "Signup complete!"
+  def check_address(addr)
+    if (!addr.success?)
+        flash[:notice] = "Could not find location: #{addr.query}"
+        render :new
     end
-    redirect_back_or_default('/')
+    
+    logger.debug "Address is success: #{addr.success}, #{addr.full_address}"
+    if (!addr.save)
+        flash[:notice] = "Could not save location: #{addr}"
+        render :new
+    end
+    
+
   end
 
-  def suspend
-    @rider.suspend! 
-    redirect_to riders_path
+  def confirm_route
+      
   end
 
-  def unsuspend
-    @rider.unsuspend! 
-    redirect_to riders_path
-  end
-
-  def destroy
-    @rider.delete!
-    redirect_to riders_path
-  end
-
-  def purge
-    @rider.destroy
-    redirect_to riders_path
-  end
-  
   def index
     @riders = Rider.paginate :order => 'created_at', :page => params[:page]
+    logger.debug @riders
   end
   
   def show
+      logger.debug @rider
+      route = @rider.route
+      logger.debug "Route: #{route}, route.from #{route.from}"
+      @from = route.from
+      @to = route.to
   end
 
 protected

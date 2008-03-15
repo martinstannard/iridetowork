@@ -1,0 +1,16 @@
+- from = @from
+- to = @to
+
+#rider.confirm
+  Is this straight-line route correct?
+  %span{:id => "from"}
+    = render :partial => 'location', :object => from
+  to
+  %span{:id => "to"}
+    = render :partial => 'location', :object => to
+
+.map#map_canvas{:width => 300, :height => 200}
+
+%script{:type => "text/javascript"}
+  = "initMap('from', 'to', #{from.ll} , #{to.ll});"
+  
