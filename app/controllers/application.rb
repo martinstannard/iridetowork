@@ -5,22 +5,30 @@ include GeoKit::Geocoders
 
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
+  geocode_ip_address
 
+  ## TODO: move these to a helper
+  def geocode(query)
+    h = geocode_hash(query)
+    loc = Location.new h
+    loc.query = query
+    loc.result = h
+    loc
+  end
 
-    def geocode(query) ## TODO: move this to a helper
-        h = geocode_hash(query)
-        loc = Location.new h
-        loc.query = query
-        loc.result = h
-        loc
-    end
+  def geocode_location(location, query)
+    h = geocode_hash(query)
+    location.update_attributes h
+    location.save
+  end
 
-    def geocode_hash(query)
-        res = MultiGeocoder.geocode(query)
-        h = res.to_hash
-        m = {:ll => '', :is_us? => ''}
-        h.delete_if {|key, value| m.has_key?(key)}
-    end
+  def geocode_hash(query)
+    ip_location = session[:geo_location] != nil ? session[:geo_location].city: "" ;
+    res = MultiGeocoder.geocode(query + ip_location)
+    h = res.to_hash
+    m = {:ll => '', :is_us? => ''}
+    h.delete_if {|key, value| m.has_key?(key)}
+  end
 
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store

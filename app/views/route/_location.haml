@@ -1,10 +1,4 @@
 %span.location
-  - remote_form_for :location, location, :url => {:controller => 'location', :action => 'save'}, :update => location.id, :complete => "location.href = location.href;" do |f|
-    %fieldset
-      = f.text_field :query, :value => location.full_address, :size => 60, :maxlength => 60
-      = f.hidden_field :id
-      - fields_for :route do |r|
-        = r.hidden_field :id, :value => params[:id]
-      = f.submit 'update', {:class => 'button'}
-      %span.subtle
-        = location.precision
+  = f.text_field direction, :value => location.full_address, :size => location.full_address.length, :maxlength => 60
+  %span.subtle
+    = location.precision

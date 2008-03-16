@@ -5,12 +5,12 @@
 google.load("maps", "2");
 
 
-function initMap(fromId, toId, f_lat, f_lon, t_lat, t_lon) {
+function initMap(fromId, toId, f_lat, f_lon, t_lat, t_lon, mid_lat, mid_lon) {
     var map = new google.maps.Map2($("map_canvas"));
     var from = new google.maps.LatLng(f_lat, f_lon);
     var to = new google.maps.LatLng(t_lat, t_lon);
-    map.setCenter(from, 13);
-    map.setMapType(G_HYBRID_MAP);
+    var mid = new google.maps.LatLng(mid_lat, mid_lon);
+    map.setCenter(mid, 13, G_HYBRID_MAP);
     map.addOverlay(createMarker(map, from, fromId));
     map.addOverlay(createMarker(map, to, toId));
     var topRight = new GControlPosition(G_ANCHOR_TOP_RIGHT, new GSize(10,10));

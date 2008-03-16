@@ -1,14 +1,17 @@
 - from = @from
 - to = @to
-
+- mid = @from.midpoint_to @to
 #rider.confirm
   I ride to work from
-  %span{:id => "from"}
-    = render :partial => 'location', :object => from
-  to
-  %span{:id => "to"}
-    = render :partial => 'location', :object => to
-  %span
+  - form_for :route, @route, :url => {:controller => 'route', :action => 'update'} do |f|
+    = f.hidden_field :id
+    %span{:id => "from"}
+      = render :partial => 'location', :object => from, :locals => {:direction => 'from', :f => f}
+    to
+    %span{:id => "to"}
+      = render :partial => 'location', :object => to, :locals => {:direction => 'to', :f => f}
+    = f.submit 'update', {:class => 'button'}
+  %div
     A straight-line distance of
     %span.distance
       = @route.fmt_distance
@@ -17,5 +20,5 @@
 .map#map_canvas{:width => 300, :height => 200}
 
 %script{:type => "text/javascript"}
-  = "initMap('from', 'to', #{from.ll} , #{to.ll});"
+  = "initMap('from', 'to', #{from.ll} , #{to.ll}, #{mid.ll});"
   

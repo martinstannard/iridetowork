@@ -63,6 +63,12 @@ h3 {
   float: left;
 }
 
+#rider {
+  position: relative;
+  padding: 10px;
+  z-index: 1000;
+  background-color: white;
+}
 
 #page {
   margin: 20px; padding: 20px;
@@ -79,6 +85,7 @@ h3 {
 .subtle {
     font: Helvetica,Arial,sans-serif;
     color: #999999;
+    font-size: smaller;
 }
 
 #sidebar {
