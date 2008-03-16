@@ -4,5 +4,7 @@ coverage
 config/database.yml
 tmp
 db/development_structure.sql
-db/schema.rb
 *.swp
+*.iml
+*.ipr
+*.iws
