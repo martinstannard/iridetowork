@@ -1,9 +1,9 @@
 .rider
-  = @from.postal_code
+  = @from.ll
   to
-  = @to.postal_code
+  = @to.ll
 
-.div{:onclick => "initMap(#{@from.lat} , #{@from.long}, #{@to.lat} , #{@to.long});"}
+.div{:onclick => "initMap(#{@from.lat} , #{@from.lng}, #{@to.lat} , #{@to.lng});"}
   Show Map
 
 
