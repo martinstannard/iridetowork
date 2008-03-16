@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 13) do
+ActiveRecord::Schema.define(:version => 5) do
 
   create_table "locations", :force => true do |t|
     t.datetime "created_at"
@@ -41,6 +41,8 @@ ActiveRecord::Schema.define(:version => 13) do
     t.string   "state",                                   :default => "passive"
     t.datetime "deleted_at"
     t.string   "name",                      :limit => 40
+    t.integer  "image_id"
+    t.text     "description"
   end
 
   create_table "routes", :force => true do |t|
