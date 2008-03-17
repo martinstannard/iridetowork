@@ -3,11 +3,11 @@
     %h2 Editing rider
   .edit#rider
 
-    - form_tag :action => 'update', :id => @rider do
+    - form_for @rider, :id => @rider do |f|
       .dry_scaffold
         %fieldset
           = render :partial => 'form'
-          = submit_tag 'Edit'
+          = submit_tag 'Update'
     
     
     = link_to 'Show', :action => 'show', :id => @rider

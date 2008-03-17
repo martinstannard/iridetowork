@@ -60,6 +60,22 @@ class RidersController < ApplicationController
     @to = route.to
   end
 
+  def update
+    @rider = Rider.find(params[:id])
+    if params[:rider][:image]
+      @rider.image.create(params[:rider][:image])
+    end
+
+    respond_to do |format|
+      if @rider.update_attributes(params[:rider])
+        flash[:notice] = 'Rider was successfully updated.'
+        format.html { redirect_to(@rider) }
+      else
+        format.html { render :action => "edit" }
+      end
+    end
+  end
+
   protected
   def find_rider
     @rider = Rider.find(params[:id])
