@@ -11,6 +11,18 @@
 
 ActiveRecord::Schema.define(:version => 5) do
 
+  create_table "images", :force => true do |t|
+    t.string   "filename"
+    t.string   "content_type"
+    t.integer  "parent_id"
+    t.string   "thumbnail"
+    t.integer  "size"
+    t.integer  "width"
+    t.integer  "height"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "locations", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
