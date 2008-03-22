@@ -53,17 +53,16 @@ class RidersController < ApplicationController
   end
 
   def show
-    logger.debug @rider
     route = @rider.route
-    logger.info @rider.to_yaml
     logger.debug "Route: #{route}, route.from #{route.from}"
     @from = route.from
     @to = route.to
   end
 
   def update
+    logger.info params.to_yaml
     @rider = Rider.find(params[:id])
-    unless params[:image].blank?
+    unless params[:image][:uploaded_data].blank?
       image = Image.new params[:image]
       image.save
       @rider.image = image

@@ -8,6 +8,8 @@ class Image < ActiveRecord::Base
 
   validates_as_attachment
 
+  has_one :rider
+
   def self.parents
     Image.find(:all, :conditions => ['parent_id IS NULL'])
   end
