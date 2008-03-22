@@ -4,7 +4,7 @@ class Image < ActiveRecord::Base
     :storage => :file_system,
     :max_size => 1.megabytes,
     :tempfile_path => "/tmp",
-    :thumbnails => { :huge => '400x400>', :large => '250x250>', :medium => '200x150>', :small => '120x90>', :tiny => '50x50>' }
+    :thumbnails => { :huge => '400x400>', :large => '250x250>', :medium => '200x150>', :small => '100x75>', :tiny => '50x50>' }
 
   validates_as_attachment
 

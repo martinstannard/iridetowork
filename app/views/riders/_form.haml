@@ -13,12 +13,17 @@
   .form_element_right
     = text_area 'rider', 'description' 
 
-
+-if @rider.image
+  .row
+    .rider_image
+      - if @rider.image
+        = image_tag @rider.image.public_filename(:tiny) 
 .row
-  .form_element_left
-    %label{:for => "rider_image"} Image
-  .form_element_right
-    = file_field 'rider', 'image' 
+  - fields_for :image do |im|
+    .form_element_left
+      %label{:for => "image_filename"} Image
+    .form_element_right
+      = im.file_field 'uploaded_data' 
 
 
 <!--[eoform:rider]-->

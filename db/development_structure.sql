@@ -1,3 +1,17 @@
+CREATE TABLE `images` (
+  `id` int(11) NOT NULL auto_increment,
+  `filename` varchar(255) default NULL,
+  `content_type` varchar(255) default NULL,
+  `parent_id` int(11) default NULL,
+  `thumbnail` varchar(255) default NULL,
+  `size` int(11) default NULL,
+  `width` int(11) default NULL,
+  `height` int(11) default NULL,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE `locations` (
   `id` int(11) NOT NULL auto_increment,
   `created_at` datetime default NULL,

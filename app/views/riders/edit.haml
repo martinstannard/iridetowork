@@ -3,7 +3,7 @@
     %h2 Editing rider
   .edit#rider
 
-    - form_for @rider, :id => @rider do |f|
+    - form_for @rider, :id => @rider, :html => { :multipart => true } do |f|
       .dry_scaffold
         %fieldset
           = render :partial => 'form'

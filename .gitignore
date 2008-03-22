@@ -2,6 +2,7 @@ log
 coverage
 *.log
 config/database.yml
+public/images
 tmp
 *.swp
 *.iml

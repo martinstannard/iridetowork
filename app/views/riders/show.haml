@@ -4,6 +4,9 @@
   = @to.ll
 .description
   = @rider.description
+.rider_image
+  - if @rider.image
+    = image_tag @rider.image.public_filename(:small) 
 
 .div{:onclick => "initMap(#{@from.lat} , #{@from.lng}, #{@to.lat} , #{@to.lng});"}
   Show Map

@@ -55,6 +55,7 @@ class RidersController < ApplicationController
   def show
     logger.debug @rider
     route = @rider.route
+    logger.info @rider.to_yaml
     logger.debug "Route: #{route}, route.from #{route.from}"
     @from = route.from
     @to = route.to
@@ -62,11 +63,13 @@ class RidersController < ApplicationController
 
   def update
     @rider = Rider.find(params[:id])
-    if params[:rider][:image]
-      @rider.image.create(params[:rider][:image])
+    unless params[:image].blank?
+      image = Image.new params[:image]
+      image.save
+      @rider.image = image
     end
-
     respond_to do |format|
+      logger.info params.to_yaml
       if @rider.update_attributes(params[:rider])
         flash[:notice] = 'Rider was successfully updated.'
         format.html { redirect_to(@rider) }
