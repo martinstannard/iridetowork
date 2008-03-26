@@ -1,20 +1,26 @@
+- from = @from
+- to = @to
+- mid = @from.midpoint_to @to
 .rider
-  = @rider.name 
-.rider
-  = @from.ll
-  to
-  = @to.ll
+  = @rider.login 
+%span.rider{:id => "from"}
+  = from.full_address
+  %span.subtle
+    = from.precision
+to
+%span.rider{:id => "to"}
+  = to.full_address
+  %span.subtle
+    = to.precision
+
 .description
   = @rider.description
 .rider_image
   - if @rider.image
     = image_tag @rider.image.public_filename(:small) 
 
-.div{:onclick => "initMap(#{@from.lat} , #{@from.lng}, #{@to.lat} , #{@to.lng});"}
-  Show Map
 
+.map#map_canvas{:width => 300, :height => 200}
 
-.map#map_canvas{:width => 500, :height => 600}
-= link_to 'Edit', :action => 'edit', :id => @rider
-\|
-= link_to 'Back', :action => 'index'
+%script{:type => "text/javascript"}
+  = "initMap('from', 'to', #{from.ll} , #{to.ll}, #{mid.ll});"

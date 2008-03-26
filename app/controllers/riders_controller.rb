@@ -57,6 +57,7 @@ class RidersController < ApplicationController
     logger.debug "Route: #{route}, route.from #{route.from}"
     @from = route.from
     @to = route.to
+    
   end
 
   def update

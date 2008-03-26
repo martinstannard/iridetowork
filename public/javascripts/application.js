@@ -16,9 +16,9 @@ function initMap(fromId, toId, f_lat, f_lon, t_lat, t_lon, mid_lat, mid_lon) {
     var topRight = new GControlPosition(G_ANCHOR_TOP_RIGHT, new GSize(10,10));
     map.addControl(new GLargeMapControl(), topRight);
     map.addControl(new GOverviewMapControl());
-    //map.openInfoWindow(from, $(fromId).cloneNode(true));
+    map.openInfoWindow(from, $(fromId).cloneNode(true));
     addRoute(map, from, to);
-    
+
     return map;
 }
 
