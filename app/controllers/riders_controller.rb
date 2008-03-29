@@ -14,6 +14,10 @@ class RidersController < ApplicationController
     to = geocode params[:rider][:to_query] + ", #{country}";
     check_address from
     check_address to
+    if (flash[:notice]) ## TODO: use errors and proper validation here.
+      render :action => :new
+      return
+    end
 
     if (!@rider.save)
       logger.debug "Could not save rider: #{@rider.id}"
@@ -32,13 +36,12 @@ class RidersController < ApplicationController
   def check_address(addr)
     if (!addr.success?)
       flash[:notice] = "Could not find location: #{addr.query}"
-      render :action => :new
+      return
     end
 
     logger.debug "Address is success: #{addr.success}, #{addr.full_address}"
     if (!addr.save)
       flash[:notice] = "Could not save location: #{addr}"
-      render :action => :new
     end
 
   end
