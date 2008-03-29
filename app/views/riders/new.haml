@@ -13,11 +13,11 @@
         %span{:style => "float:left"}
           %label.subtle{:for => "from_query"} (Postcode or Address)
           %br
-          = f.text_field :to_query
+          = f.text_field :from_query
         %span
           %label{:for => "to_query"} to
           %br
-          = f.text_field :from_query
+          = f.text_field :to_query
           %span .
     %p
       = submit_tag 'Continue', {:class => 'button'}

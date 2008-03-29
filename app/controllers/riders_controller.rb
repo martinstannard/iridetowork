@@ -32,13 +32,13 @@ class RidersController < ApplicationController
   def check_address(addr)
     if (!addr.success?)
       flash[:notice] = "Could not find location: #{addr.query}"
-      render :new
+      render :action => :new
     end
 
     logger.debug "Address is success: #{addr.success}, #{addr.full_address}"
     if (!addr.save)
       flash[:notice] = "Could not save location: #{addr}"
-      render :new
+      render :action => :new
     end
 
   end
@@ -48,9 +48,7 @@ class RidersController < ApplicationController
   end
 
   def index
-    @riders = Rider.paginate :order => 'created_at', :page => params[:page]
     @routes = Route.find :all
-    
     respond_to do |format|
       format.json {
         json = Array.new
@@ -62,9 +60,8 @@ class RidersController < ApplicationController
         }
         render :json => json, :content_type => 'text/javascript', :callback => :paint
       }
-      format.html
+      format.html {@riders = Rider.paginate :order => 'created_at', :page => params[:page] }
     end
-    logger.debug @riders
   end
 
   def show

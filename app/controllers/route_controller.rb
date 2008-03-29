@@ -20,8 +20,4 @@ class RouteController < ApplicationController
   def find_route
     @route = Route.find_by_id params[:id]
   end
-
-  def find_route
-    @route = Route.find_by_id params[:id]
-  end
 end
