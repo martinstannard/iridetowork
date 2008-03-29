@@ -28,15 +28,15 @@ ActionController::Routing::Routes.draw do |map|
   # map.root :controller => "welcome"
 
   # See how all your routes lay out with "rake routes"
-	map.resources :riders, :member => { :suspend   => :put,
-                                     :unsuspend => :put,
-                                     :purge     => :delete }
+  map.resources :riders
 
   map.location 'location/:action/:id', :controller => 'location'
   
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id.:format'
   map.connect ':controller/:action/:id'
+  map.connect ':controller/:action.:format'
   map.connect ':controller/:action'
+
   map.connect '/', :controller => 'riders', :action => 'index'
 end

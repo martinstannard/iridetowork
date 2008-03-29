@@ -1,6 +1,6 @@
 class RidersController < ApplicationController  
 
-  before_filter :find_rider, :except => [:index, :new, :create]
+  before_filter :find_rider, :except => [:index, :new, :create, :json]
 
   # render new.rhtml
   def new
@@ -49,6 +49,21 @@ class RidersController < ApplicationController
 
   def index
     @riders = Rider.paginate :order => 'created_at', :page => params[:page]
+    @routes = Route.find :all
+    
+    respond_to do |format|
+      format.json {
+        json = Array.new
+        @routes.collect {
+          |route| json <<  {:id => route.id,
+                           :rider => {:name => route.rider.login, :id => route.rider_id},
+                           :from =>  {:lat => route.from.lat, :lng => route.from.lng},
+                           :to =>    {:lat => route.to.lat, :lng => route.to.lng}}
+        }
+        render :json => json, :content_type => 'text/javascript', :callback => :paint
+      }
+      format.html
+    end
     logger.debug @riders
   end
 

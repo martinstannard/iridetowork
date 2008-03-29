@@ -18,13 +18,9 @@ function initMap(fromId, toId, f_lat, f_lon, t_lat, t_lon, mid_lat, mid_lon) {
     map.addControl(new GOverviewMapControl());
     map.openInfoWindow(from, $(fromId).cloneNode(true));
     addRoute(map, from, to);
-
     return map;
 }
 
-function updateLocation(lat, long) {
-
-}
 
 function createMarker(map, point, nodeId) {
     marker  = new google.maps.Marker(point);
@@ -37,4 +33,23 @@ function createMarker(map, point, nodeId) {
 function addRoute(map, from, to) {
     var polyline = new google.maps.Polyline([from, to], "#0870C0", 2, 1);
     map.addOverlay(polyline);
+}
+
+function paint(routes) {
+    var map = new google.maps.Map2($("map_canvas"));
+    var to = new google.maps.LatLng(routes[0].to.lat, routes[0].to.lng);
+    map.setCenter(to, 13, G_SATELLITE_MAP);
+    var topRight = new GControlPosition(G_ANCHOR_TOP_RIGHT, new GSize(10,10));
+    var topLeft = new GControlPosition(G_ANCHOR_TOP_LEFT, new GSize(10,10));
+    map.addControl(new GLargeMapControl(), topRight);
+    map.addControl(new GOverviewMapControl());
+    map.addControl(new GMenuMapTypeControl(), topLeft);
+
+    for (var i = 0; i < routes.length; i++) {
+      var route = routes[i];
+      var from = new google.maps.LatLng(route.from.lat, route.from.lng);
+      var to = new google.maps.LatLng(route.to.lat, route.to.lng);
+      addRoute(map, from, to);      
+    }
+    return map;
 }
