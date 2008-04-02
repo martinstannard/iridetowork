@@ -48,7 +48,7 @@ CREATE TABLE `riders` (
   `image_id` int(11) default NULL,
   `description` text,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `routes` (
   `id` int(11) NOT NULL auto_increment,
@@ -64,4 +64,4 @@ CREATE TABLE `schema_info` (
   `version` int(11) default NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-INSERT INTO `schema_info` (version) VALUES (5)
+INSERT INTO `schema_info` (version) VALUES (6)

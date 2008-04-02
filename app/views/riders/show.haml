@@ -2,7 +2,8 @@
 - to = @to
 - mid = @from.midpoint_to @to
 .rider
-  = @rider.login 
+  = link_to @rider.login, edit_rider_path(@rider) 
+
 %span.rider{:id => "from"}
   = from.full_address
   %span.subtle
