@@ -1,13 +1,13 @@
-%span.map
-  .map#map_canvas{:width => 100, :height => 100}
+
+#contentcenter
+  .summary
+    %ul.riders
+      - for rider in @riders
+        %li[rider]
+          %a{:href => rider_path(:id=> rider)}
+            =rider.login
+#contentright
+  %span.map
+    .map#map_canvas{:width => 100, :height => 100}
 
 %script{:type => "text/javascript", :src => "/riders.json"}
-
-%span.summary
-  %ul.riders
-    - for rider in @riders
-      %li[rider]
-        %a{:href => rider_path(:id=> rider)}
-          =rider.login
-  %br
-  = link_to 'Signup', new_rider_path
