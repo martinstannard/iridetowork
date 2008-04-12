@@ -9,3 +9,4 @@ tmp
 *.ipr
 *.iws
 vendor/plugins/doc
+vendor/plugins

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 6) do
+ActiveRecord::Schema.define(:version => 7) do
 
   create_table "images", :force => true do |t|
     t.string   "filename"
@@ -52,7 +52,6 @@ ActiveRecord::Schema.define(:version => 6) do
     t.datetime "activated_at"
     t.string   "state",                                   :default => "passive"
     t.datetime "deleted_at"
-    t.string   "name",                      :limit => 40
     t.integer  "image_id"
     t.text     "description"
   end
