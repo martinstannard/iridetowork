@@ -6,6 +6,10 @@ describe Image do
   end
 
   it "should be valid" do
-    @image.should be_valid
+    @image.should have(2).error_on(:size)
+  end
+
+  it "should be valid" do
+    @image.should have(2).error_on(:content_type)
   end
 end
