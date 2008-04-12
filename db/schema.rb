@@ -31,8 +31,8 @@ ActiveRecord::Schema.define(:version => 6) do
     t.string   "state"
     t.string   "zip"
     t.string   "country_code"
-    t.decimal  "lat",            :precision => 15, :scale => 12
-    t.decimal  "lng",            :precision => 15, :scale => 12
+    t.decimal  "lat",            :precision => 15, :scale => 12, :null => false
+    t.decimal  "lng",            :precision => 15, :scale => 12, :null => false
     t.string   "precision"
     t.string   "provider"
     t.boolean  "success"

@@ -4,6 +4,8 @@ class Location < ActiveRecord::Base
 
     attr_accessor :query, :result
     acts_as_mappable :default_units => :kms
+    validates_presence_of :lat
+    validates_presence_of :lng
 
     def ll
         "#{lat},#{lng}"
