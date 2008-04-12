@@ -1,0 +1,32 @@
+.dry_scaffold
+  .dry_scaffold_header
+    %h2 infos
+    .actions
+      .create= link_to 'New info', :action => 'new' 
+  %table
+    %thead
+      %tr
+        - for column in Info.content_columns 
+          %th
+            = column.human_name 
+    %tbody
+      - for info in @infos
+        .row
+          %tr{ :class => cycle('','even')}
+            - for column in Info.content_columns
+              %td
+                =h info.send(column.name)
+            %td
+              .actions
+                = link_to 'Show', :action => 'show', :id => info 
+                \|
+                = link_to 'Edit', :action => 'edit', :id => info
+                \|
+                = link_to 'Destroy', { :action => 'destroy', :id => info }, :confirm => 'Are you sure?', :method => :post
+  
+  = link_to 'Previous page', { :page => @info_pages.current.previous } if @info_pages.current.previous 
+  = link_to 'Next page', { :page => @info_pages.current.next } if @info_pages.current.next  
+  
+  %br/
+
+

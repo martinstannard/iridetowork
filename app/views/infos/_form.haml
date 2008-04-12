@@ -1,0 +1,27 @@
+= error_messages_for 'info' 
+
+<!--[form:info]-->
+.row
+  .form_element_left
+    %label{:for => "info_key"} Key
+  .form_element_right
+    = text_field 'info', 'key' 
+
+.row
+  .form_element_left
+    %label{:for => "info_text"} Text
+  .form_element_right
+    = text_field 'info', 'text' 
+
+.row
+  .form_element_left
+    %label{:for => "info_created_at"} Created at
+  .form_element_right
+    = datetime_select 'info', 'created_at' 
+
+.row
+  .form_element_left
+    %label{:for => "info_updated_at"} Updated at
+  .form_element_right
+    = datetime_select 'info', 'updated_at' 
+<!--[eoform:info]-->

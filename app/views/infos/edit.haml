@@ -1,0 +1,15 @@
+.dry_scaffold
+  .dry_scaffold_header
+    %h2 Editing info
+  .edit#info
+
+    - form_tag :action => 'update', :id => @info do
+      .dry_scaffold
+        %fieldset
+          = render :partial => 'form'
+          = submit_tag 'Edit'
+    
+    
+    = link_to 'Show', :action => 'show', :id => @info
+    \|
+    = link_to 'Back', :action => 'list'

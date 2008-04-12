@@ -1,0 +1,12 @@
+.dry_scaffold
+  .dry_scaffold_header
+    %h2 Add info
+  .new#info
+    
+    - form_tag :action => 'create' do 
+      .dry_scaffold
+        %fieldset
+          = render :partial => 'form'
+          = submit_tag "Create"
+    
+    = link_to 'Back', :action => 'list'

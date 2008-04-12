@@ -1,0 +1,610 @@
+/*  
+ DryScaffoldGenerator version 3.1.0
+ (c) 2006 Richard White <rrwhite@gmail.com>
+ 
+ DryScaffoldGenerator is freely distributable under the terms of an MIT-style license.
+ 
+ For details, see the DryScaffoldGenerator web site: http://www.DryScaffold.com/
+*/
+
+.dry_scaffold form,
+.dry_scaffold table,
+.dry_scaffold p,
+.dry_scaffold div,
+.dry_scaffold fieldset {
+	margin: 0;
+	padding: 0;
+	font-weight: normal;
+	font-family: verdana, sans-serif;
+}
+
+.dry_scaffold {
+	margin: 5px 0;
+}
+
+.dry_scaffold table {
+ 	padding: 2;
+	width: 100%;
+}
+
+.dry_scaffold a,
+.dry_scaffold a:visited {
+	color: #06c;
+	text-decoration: none;
+}
+.dry_scaffold a:hover {
+	background: #ff8;
+	text-decoration: none;
+}
+
+.dry_scaffold_body {
+	background: #E6F2FF;
+	border: 1px;
+}
+
+/* Header Styling
+   ======================== */
+
+.dry_scaffold_header {
+	background-old: #005CB8;
+	background: navy;
+	position: relative;
+	color: #eee;
+	font-weight: normal;
+	font-size: 12px;
+}
+
+.dry_scaffold_header h2 {
+	color: #eee;
+	padding: 2px 5px 4px 5px;
+	margin: 0;
+	font-weight: normal;
+	font-size: 17px;
+}
+
+.dry_scaffold_header div.actions a {
+	color: #fff;
+	font-weight: bold;
+	font-size: 14px;
+	letter-spacing: -1px;
+	text-decoration: none;
+	padding: 1px 2px 1px 19px;
+}
+
+.dry_scaffold_header div.actions a:hover {
+	color: #ff8;
+	background: #333;
+	text-decoration: none;
+}
+
+.dry_scaffold_header div.actions {
+	position: absolute;
+	right: 5px;
+	top: 3px;
+	text-align: right;
+}
+
+.dry_scaffold_header div.actions div.create a,
+.dry_scaffold_header div.actions div.create a.visited {
+	color: #fff;
+	background: url(/engine_files/dry_scaffold/images/add.gif) 1px 50% no-repeat;
+	font-weight: bold;
+	font-size: 14px;
+	letter-spacing: -1px;
+	text-decoration: none;
+	padding: 1px 2px 1px 19px;
+}
+
+.dry_scaffold_header div.create a:hover {
+	background: #333 url(/engine_files/dry_scaffold/images/add.gif) 1px 50% no-repeat;
+	color: #ff8;
+	text-decoration: none;
+}
+
+.dry_scaffold_header div.create {
+	right: 5px;
+	top: 4px;
+	text-align: left;
+}
+
+/* Header Styling : Nested
+   ======================== */
+
+.dry_scaffold .dry_scaffold {
+	margin: 2px 5px;
+}
+
+.dry_scaffold .dry_scaffold .dry_scaffold_header h2 {
+	font-size: 13px;
+}
+
+.dry_scaffold .dry_scaffold .dry_scaffold_header div.actions a {
+	font-weight: bold;
+	font-size: 11px;
+	padding: 0 2px 1px 17px;
+}
+
+.dry_scaffold .dry_scaffold .dry_scaffold_header div.actions {
+	top: 2px;
+}
+
+/* Table Column Headers
+   ============================= */
+
+.dry_scaffold th {
+	font-size: 11px;
+	background: #555;
+	text-align: left;
+	vertical-align: bottom;
+	border-left: solid 1px #333;
+	color: #fff;
+	padding: 0;
+}
+
+.dry_scaffold th.actions {
+}
+
+.dry_scaffold th.actions div input {
+	padding-left: 2px;
+	padding-right: 0px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
+.dry_scaffold th a,
+.dry_scaffold th p {
+	font-size: 11px;
+	display: block;
+}
+
+.dry_scaffold th a,
+.dry_scaffold th a:visited {
+	font-weight: bold;
+	padding: 4px 4px 4px 4px;
+	color: #fff;
+}
+
+.dry_scaffold th p {
+	padding: 4px 4px 4px 4px;
+}
+
+.dry_scaffold th a:hover {
+	background: #000;
+	color: #ff8;
+	text-decoration: none;
+}
+
+.dry_scaffold th.sorted {
+	background: #333;
+}
+
+.dry_scaffold th div.like_by{
+	line-height: 2;
+	padding: 4px 4px 2px 4px;
+}
+
+.dry_scaffold th div.sort_by{
+}
+
+.dry_scaffold th div.sort_by a{
+}
+
+.dry_scaffold th div.sort_by div.sub {
+	font-size: 9px;
+}
+
+.dry_scaffold th div.sort_by a.asc,
+.dry_scaffold th div.sort_by a.asc:hover {
+	background: #333 url(/engine_files/dry_scaffold/images/arrow_up.gif) right 50% no-repeat;
+}
+
+.dry_scaffold th div.sort_by a.desc,
+.dry_scaffold th div.sort_by a.desc:hover {
+	background: #333 url(/engine_files/dry_scaffold/images/arrow_down.gif) right 50% no-repeat;
+}
+
+.dry_scaffold th.loading a,
+.dry_scaffold th.loading a:hover {
+	background: #333 url(/engine_files/dry_scaffold/images/indicator-small.gif) right 50% no-repeat;
+}
+
+.dry_scaffold th div.like_by div.auto_complete {
+  color: #000; 
+  background: #fff;
+}
+.dry_scaffold th div.like_by div.auto_complete ul {
+  border:1px solid #888;
+  margin:0;
+  padding:0;
+  width:100%;
+  list-style-type:none;
+}
+.dry_scaffold th div.like_by div.auto_complete ul li {
+  margin:0;
+  padding:3px;
+}
+.dry_scaffold th div.like_by div.auto_complete ul li.selected { 
+  background-color: #ffb; 
+}
+.dry_scaffold th div.like_by div.auto_complete ul li div.id { 
+  display: none;
+}
+.dry_scaffold th div.like_by div.auto_complete ul strong.highlight { 
+  color: #000; 
+  margin:0;
+  padding:0;
+}
+
+/* Table Body Styling
+   ============================= */
+
+.dry_scaffold td {
+	padding: 5px 4px;
+	color: #333;
+	font-size: 11px;
+	background-color: #E6F2FF;
+	border-bottom: solid 1px #C5DBF7;
+	border-left: solid 1px #C5DBF7;
+}
+.dry_scaffold td.edit {
+	border-right: solid 1px #ccc;
+}
+.dry_scaffold tr.even td.crud,
+.dry_scaffold td.crud {
+	border: none;
+}
+.dry_scaffold td.actions {
+	border-right: solid 1px #ccc;
+}
+
+.dry_scaffold tr.even td {
+	background-color: #fff;
+	border-left: solid 1px #ddd;
+}
+
+.dry_scaffold tr td.sorted {
+	background-color: #B9DCFF;
+	border-bottom: solid 1px #AFD0F5;
+}
+
+.dry_scaffold tr.even td.sorted {
+	background-color: #E6F2FF;
+	border-bottom: solid 1px #AFD0F5;
+}
+
+.dry_scaffold td.empty {
+	color: #999;
+	text-align: center;
+}
+
+/* Table Actions (Edit, Delete) Styling
+   ============================= */
+
+.dry_scaffold td.actions {
+padding: 0;
+}
+
+.dry_scaffold td.actions table {
+float: right;
+width: auto;
+margin-right: 5px;
+}
+
+.dry_scaffold td.actions table td {
+border: none;
+text-align: right;
+padding: 0 2px;
+}
+
+.dry_scaffold td.actions a {
+font-weight: bold	;
+font-size: 11px;
+letter-spacing: -1px;
+padding: 2px;
+line-height: 16px;
+}
+
+/* dry_scaffold Footer Styling 
+   ========================== */
+
+.dry_scaffold .dry_scaffold_footer {
+text-align: right;
+background: navy;
+padding: 3px 5px 2px 5px;
+border-bottom: none;
+color: #ccc;
+font-weight: bold;
+font-size: 12px;
+}
+
+.dry_scaffold_footer a {
+color: #fff;
+text-decoration: none;
+letter-spacing: 0;
+padding: 0 2px;
+margin: 0 -2px;
+font-weight: bold;
+font-size: 12px;
+}
+
+.dry_scaffold_footer a:hover {
+	background: #000;
+	color: #ff8;
+	text-decoration: none;
+}
+
+.dry_scaffold_footer .next {
+margin-left: 0;
+padding-left: 5px;
+border-left: solid 1px #ccc;
+}
+
+.dry_scaffold_footer .previous {
+margin-right: 0;
+padding-right: 5px;
+border-right: solid 1px #ccc;
+}
+
+/* Messages 
+   ========================= */
+
+.dry_scaffold .messages_container,
+.dry_scaffold .dry_scaffold .messages_container{
+padding: 0;
+margin: 0 7px;
+border: none;
+}
+
+.dry_scaffold .empty_message {
+background: #e8e8e8;
+padding: 4px;
+text-align: center;
+color: #666;
+}
+
+.dry_scaffold .message {
+font-size: 11px;
+font-weight: bold;
+padding: 5px 20px 5px 21px;
+color: #333;
+position: relative;
+margin: 2px 7px;
+line-height: 12px;
+}
+
+.dry_scaffold td .message a {
+position: absolute;
+right: 10px;
+top: 4px;
+padding: 0;
+font-weight: bold;
+font-size: 11px;
+letter-spacing: -1px;
+}
+
+.dry_scaffold .messages_container .message {
+margin: 0;
+}
+
+.dry_scaffold .error_message {
+border-left: solid 5px #f66;
+background: #fbb url(/engine_files/dry_scaffold/images/error.gif) 2px 3px no-repeat;
+}
+
+.dry_scaffold .warning_message {
+border-left: solid 5px #ff6;
+background: #ffb url(/engine_files/dry_scaffold/images/warning.gif) 2px 3px no-repeat;
+}
+
+.dry_scaffold .info_message {
+border-left: solid 5px #66f;
+background: #bbf url(/engine_files/dry_scaffold/images/information.gif) 2px 3px no-repeat;
+}
+
+* html .dry_scaffold .messages_container .message {
+background-position: 7px 3px;
+}
+
+/* Error Styling 
+   ========================== */
+
+.dry_scaffold #errorExplanation {
+background: #fcc;
+margin: 2px 7px;
+border: solid 1px #f66;
+float: left;
+}
+
+.dry_scaffold fieldset {
+clear: both;
+}
+
+.dry_scaffold #errorExplanation h2 {
+padding: 2px 5px 3px 20px;
+color: #333;
+font-size: 11px;
+margin: 0;
+letter-spacing: 0;
+background: #f66 url(/engine_files/dry_scaffold/images/error.gif) 2px 1px no-repeat;
+}
+
+.dry_scaffold #errorExplanation ul {
+margin: 0;
+padding: 0 2px 4px 25px;
+list-style: disc;
+}
+
+.dry_scaffold #errorExplanation p {
+font-size: 11px;
+padding: 2px 5px;
+margin: 0;
+}
+
+.dry_scaffold #errorExplanation ul li {
+font-weight: bold	;
+font-size: 11px;
+letter-spacing: -1px;
+margin: 0;
+padding: 0;
+background: transparent;
+}
+
+.dry_scaffold .fieldWithErrors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+/* Loading Indicators
+   ============================== */
+
+.dry_scaffold .loading_indicator {
+vertical-align: bottom;
+margin: 0;
+}
+
+.dry_scaffold .dry_scaffold_header .loading_indicator,
+.dry_scaffold .update .loading_indicator,
+.dry_scaffold .create .loading_indicator {
+vertical-align: bottom;
+margin-bottom: 3px;
+}
+
+/* Form Styling 
+   ============================== */
+
+.dry_scaffold div.edit,
+.dry_scaffold div.new {
+background: #DAFFCD;
+padding: 4px;
+border: solid 1px #7FcF00;
+}
+
+.dry_scaffold .dry_scaffold td.edit,
+.dry_scaffold .dry_scaffold td.new {
+	border-right: solid 1px #ccc;
+}
+
+.dry_scaffold div.show {
+	background: #ffb;
+	padding: 4px;
+	border: solid 1px #DDDF37;
+}
+
+.dry_scaffold div.show_field {
+	background: #fff;
+	border: solid 1px #DDDF37;
+	padding: 2px;
+}
+   
+.dry_scaffold td.child {
+background: #eee;
+padding: 14px;
+border-bottom: solid 1px #C5DBF7;
+border-left: solid 1px #C5DBF7;
+border-top: none;
+}
+   
+.dry_scaffold .submit {
+font-weight: bold;
+font-size: 14px;
+letter-spacing: 0;
+margin: 0;
+margin-top: 5px;
+}
+
+.dry_scaffold fieldset {
+border: none;
+}
+
+.dry_scaffold label.required{
+font-weight: bold;
+}
+
+.dry_scaffold label.example {
+font-size: 11px;
+color: #888;
+}
+
+.dry_scaffold h4 {
+padding: 2px;
+margin: 0;
+text-transform: none;
+color: #1F7F00;
+letter-spacing: -1px;
+font-weight: bold;
+font-size: 16px;
+}
+
+.dry_scaffold p.form_footer a {
+font-weight: bold	;
+font-size: 14px;
+letter-spacing: 0;
+}
+
+.dry_scaffold p {
+clear: both;
+}
+
+.dry_scaffold div.row {
+clear: both;
+float: none;
+padding: 2px;
+margin-left: 5px;
+}
+
+.dry_scaffold .row div.form_element {
+float: left;
+margin-right: 10px;
+margin-bottom: 2px;
+}
+
+.dry_scaffold .row div.form_element_left {
+float: left;
+width: 20%;
+margin:0;
+margin-top:5px;
+text-align: right;
+}
+
+.dry_scaffold .row div.form_element_right {
+float: right;
+width: 79%;
+text-align: left;
+margin:0;
+}
+
+.dry_scaffold .row div.space_line {
+clear: both; 
+}
+
+.dry_scaffold input.text_input,
+.dry_scaffold select {
+font-size: 16px;
+font-weight: bold;
+letter-spacing: -1px;
+border: solid 1px #1F7F00;
+}
+
+.dry_scaffold .form_element input {
+padding: 1px;
+}
+
+.dry_scaffold textarea {
+height: 105px;
+width: 450px;
+font-size: 12px;
+padding: 1px;
+border: solid 1px #1F7F00;
+}
+
+/* IE hacks
+   ==================================== */
+   
+* html .dry_scaffold_header {
+height: 1%;
+}   
+
+* html .dry_scaffold td .messages_container {
+border-top: solid 1px #DAFFCD;
+}

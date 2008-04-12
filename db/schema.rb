@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 7) do
+ActiveRecord::Schema.define(:version => 8) do
 
   create_table "images", :force => true do |t|
     t.string   "filename"
@@ -19,6 +19,13 @@ ActiveRecord::Schema.define(:version => 7) do
     t.integer  "size"
     t.integer  "width"
     t.integer  "height"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "infos", :force => true do |t|
+    t.string   "key"
+    t.string   "text"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
