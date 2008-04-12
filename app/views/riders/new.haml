@@ -1,27 +1,20 @@
-
 - form_for :rider, :url => riders_path do |f|
-  %fieldset
-    = error_messages_for :from
-    = error_messages_for :to
-    = flash[:notice]
-    
-    %p
+  #contentcenter
+    %fieldset.summary
+      = error_messages_for :from
+      = error_messages_for :to
+      = flash[:notice]
       %label{:for => "Name"} My name is
-      %br
       = f.text_field :name
-
-    %p
       .route
-        %p and I ride to work from 
-        %span{:style => "float:left"}
+        and I ride to work from
+        %div
           %label.subtle{:for => "from_query"} (Postcode or Address)
-          %br
           = f.text_field :from_query
-        %span
-          %label{:for => "to_query"} to
-          %br
+        %div
+          %label{:for => "to_query"}
           = f.text_field :to_query
           %span .
-    %p
-      = submit_tag 'Continue', {:class => 'button'}
-
+  #contentright
+    = f.text_area :description
+    = submit_tag 'Continue', {:class => 'button'}
