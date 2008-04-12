@@ -9,4 +9,10 @@ class Location < ActiveRecord::Base
         "#{lat},#{lng}"
     end
 
+  protected
+  def validate
+    logger.debug "Address is success: #{success}, #{full_address}"    
+    errors.add(:query, "Could not locate address from query: #{query}") #unless self.success
+    logger.debug "Errors #{errors}"
+  end
 end

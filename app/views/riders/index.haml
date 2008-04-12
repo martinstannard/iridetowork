@@ -1,3 +1,7 @@
+%span
+  .map#map_canvas{:width => 300, :height => 200}
+
+%script{:type => "text/javascript", :src => "/riders.json"}
 %h1 I Ride To Work
 
 %div
@@ -5,10 +9,5 @@
     %span[rider]
       %a{:href => rider_path(:id=> rider)}
         =rider.login
-  %span
-    .map#map_canvas{:width => 300, :height => 200}
-
-%script{:type => "text/javascript", :src => "/riders.json"}
-
 %br
 = link_to 'Signup', new_rider_path

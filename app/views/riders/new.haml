@@ -1,9 +1,10 @@
 
 - form_for :rider, :url => riders_path do |f|
   %fieldset
-    = error_messages_for :rider
-    = error_messages_for :location
+    = error_messages_for :from
+    = error_messages_for :to
     = flash[:notice]
+    
     %p
       %label{:for => "Name"} My name is
       %br
