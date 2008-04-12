@@ -1,27 +1,28 @@
 - from = @from
 - to = @to
 - mid = @from.midpoint_to @to
-.rider
-  = link_to @rider.login, edit_rider_path(@rider) 
+%span.map
+  .map#map_canvas{:width => 100, :height => 100}
 
-%span.rider{:id => "from"}
-  = from.full_address
-  %span.subtle
-    = from.precision
-to
-%span.rider{:id => "to"}
-  = to.full_address
-  %span.subtle
-    = to.precision
+%span.summary
+  .rider
+    %span.rider_image
+      - if @rider.image
+        = image_tag @rider.image.public_filename(), :width => 50
+      = link_to @rider.login, edit_rider_path(@rider) 
 
-.description
-  = @rider.description
-.rider_image
-  - if @rider.image
-    = image_tag @rider.image.public_filename(:small) 
+  %span.rider{:id => "from"}
+    = from.full_address
+    %span.subtle
+      = from.precision
+  to
+  %span.rider{:id => "to"}
+    = to.full_address
+    %span.subtle
+      = to.precision
 
-
-.map#map_canvas{:width => 300, :height => 200}
+  .description
+    = @rider.description
 
 %script{:type => "text/javascript"}
   = "initMap('from', 'to', #{from.ll} , #{to.ll}, #{mid.ll});"

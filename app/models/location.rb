@@ -12,7 +12,7 @@ class Location < ActiveRecord::Base
   protected
   def validate
     logger.debug "Address is success: #{success}, #{full_address}"    
-    errors.add(:query, "Could not locate address from query: #{query}") #unless self.success
+    errors.add(:query, "Could not locate address from query: #{query}") unless self.success
     logger.debug "Errors #{errors}"
   end
 end
