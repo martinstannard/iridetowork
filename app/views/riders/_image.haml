@@ -1,0 +1,5 @@
+.rider_image
+  - if image
+    = image_tag image.public_filename(:tiny)
+  - else
+    %img{:src => "/images/default_av.png"}/
