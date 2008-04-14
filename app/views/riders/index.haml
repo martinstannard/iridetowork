@@ -1,13 +1,13 @@
 
-#contentcenter
+#contentcenter{:style => "width: 200px"}
   .summary
     %ul.riders
       - for rider in @riders
         %li[rider]
           %a{:href => rider_path(:id=> rider)}
             =rider.login
-#contentright
+#contentright{:style => "width: 700px"}
   %span.map
-    .map#map_canvas{:width => 100, :height => 100}
+    .map#map_canvas{:style => "width: 700px"}
 
 %script{:type => "text/javascript", :src => "/riders.json"}
