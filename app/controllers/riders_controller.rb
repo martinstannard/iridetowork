@@ -6,6 +6,11 @@ class RidersController < ApplicationController
   def new
   end
 
+  def edit
+    @route = Route.find_by_rider_id @rider.id
+
+  end
+
   def create
     cookies.delete :auth_token
     @rider = Rider.new(:login => params[:rider][:name])
@@ -68,17 +73,21 @@ class RidersController < ApplicationController
     logger.debug "Route: #{route}, route.from #{route.from}"
     @from = route.from
     @to = route.to
-    
   end
 
   def update
     logger.info params.to_yaml
     @rider = Rider.find(params[:id])
-    unless params[:image][:uploaded_data].blank?
-      image = Image.new params[:image]
-      image.save
-      @rider.image = image
+    logger.info @rider
+
+    if params[:image]
+      unless params[:image][:uploaded_data].blank?
+        image = Image.new params[:image]
+        image.save
+        @rider.image = image
+      end
     end
+    
     respond_to do |format|
       logger.info params.to_yaml
       if @rider.update_attributes(params[:rider])

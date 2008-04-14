@@ -1,23 +1,34 @@
 - from = @from
 - to = @to
 - mid = @from.midpoint_to @to
-#rider.confirm
-  I ride to work from
-  - form_for :route, @route, :url => {:controller => 'route', :action => 'update'} do |f|
-    = f.hidden_field :id
-    %span{:id => "from"}
-      = render :partial => 'location', :object => from, :locals => {:direction => 'from', :f => f}
-    to
-    %span{:id => "to"}
-      = render :partial => 'location', :object => to, :locals => {:direction => 'to', :f => f}
-    = f.submit 'update', {:class => 'button'}
-  %div
-    A straight-line distance of
-    %span.distance
-      = @route.fmt_distance
-    kilometers.
+- rider = @route.rider
+#contentcenter
+  #rider.confirm
+    = render :partial => 'riders/image', :object => rider.image
+    I ride to work from
+    - form_for :route, @route, :url => {:controller => 'route', :action => 'update'} do |f|
+      = f.hidden_field :id
+      #from
+        = render :partial => 'location', :object => from, :locals => {:direction => 'from', :f => f}
+      to
+      #to
+        = render :partial => 'location', :object => to, :locals => {:direction => 'to', :f => f}
+      = f.submit 'update', {:class => 'button'}
+    %div
+      A straight-line distance of
+      %span.distance
+        = @route.fmt_distance
+      kilometers.
 
-.map#map_canvas{:width => 300, :height => 200}
+    #description
+      .subtle
+        Why do you ride to work?
+      - form_for rider, :id => rider, :html => { :multipart => true }, :controller => 'rider' do |f|
+        = f.text_area :description
+        = f.submit 'Done', {:class => 'button'}
+
+#contentright
+  .map#map_canvas{:width => 100, :height => 100}
 
 %script{:type => "text/javascript"}
-  = "initMap('from', 'to', #{from.ll} , #{to.ll}, #{mid.ll});"
+  = "function initPage() {initMap('from', 'to', #{from.ll} , #{to.ll}, #{mid.ll});}"

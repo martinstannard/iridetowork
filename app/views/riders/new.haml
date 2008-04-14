@@ -5,16 +5,17 @@
       = error_messages_for :to
       = flash[:notice]
       %label{:for => "Name"} My name is
+      %p
       = f.text_field :name
       .route
         and I ride to work from
+        %label.subtle{:for => "from_query"} (Postcode or Address)
         %div
-          %label.subtle{:for => "from_query"} (Postcode or Address)
           = f.text_field :from_query
+          to
         %div
           %label{:for => "to_query"}
           = f.text_field :to_query
           %span .
-  #contentright
-    = f.text_area :description
     = submit_tag 'Continue', {:class => 'button'}
+  #contentright

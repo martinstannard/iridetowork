@@ -1,14 +1,18 @@
 .dry_scaffold
   .dry_scaffold_header
-  .edit#rider
+  #contentcenter
+    .edit#rider
+      - form_for @rider, :id => @rider, :html => { :multipart => true } do |f|
+        .dry_scaffold
+          %fieldset
+            = render :partial => 'form'
+            = submit_tag 'Update'
+#contentright
+  .map#map_canvas
 
-    - form_for @rider, :id => @rider, :html => { :multipart => true } do |f|
-      .dry_scaffold
-        %fieldset
-          = render :partial => 'form'
-          = submit_tag 'Update'
-    
-    
-    = link_to 'Show', :action => 'show', :id => @rider
-    \|
-    = link_to 'Back', :action => 'list'
+- from = @route.from
+- to = @route.to
+- mid = from.midpoint_to to
+
+%script{:type => "text/javascript"}
+  = "function initPage() {initMap('from', 'to', #{from.ll} , #{to.ll}, #{mid.ll});}"
