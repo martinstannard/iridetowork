@@ -16,6 +16,13 @@
       = to.full_address
       %span.subtle
         = to.precision
+	
+    %div
+      As the crow flies, this is a distance of
+      %span.distance
+        = @rider.route.fmt_distance
+      kilometers.
+
     .description
       = @rider.description
 #contentright

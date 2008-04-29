@@ -11,13 +11,14 @@ module Spec
         end
       end
 
-      attr_reader :description_text, :description_args, :spec_path
+      attr_reader :description_text, :description_args, :description_options, :spec_path, :registration_binding_block
 
       def inherited(klass)
         super
-        klass.register
+        klass.register {}
+        Spec::Runner.register_at_exit_hook
       end
-
+      
       # Makes the describe/it syntax available from a class. For example:
       #
       #   class StackSpec < Spec::ExampleGroup
@@ -122,7 +123,12 @@ module Spec
       end
 
       def description
-        ExampleGroupMethods.description_text(*description_parts)
+        result = ExampleGroupMethods.description_text(*description_parts)
+        if result.nil? || result == ""
+          return to_s
+        else
+          result
+        end
       end
 
       def described_type
@@ -140,6 +146,7 @@ module Spec
       def set_description(*args)
         args, options = args_and_options(*args)
         @description_args = args
+        @description_options = options
         @description_text = ExampleGroupMethods.description_text(*args)
         @spec_path = File.expand_path(options[:spec_path]) if options[:spec_path]
         if described_type.class == Module
@@ -230,12 +237,17 @@ module Spec
         @after_each_parts = nil
       end
 
-      def register
+      def register(&registration_binding_block)
+        @registration_binding_block = registration_binding_block
         rspec_options.add_example_group self
       end
 
       def unregister #:nodoc:
         rspec_options.remove_example_group self
+      end
+
+      def registration_backtrace
+        eval("caller", registration_binding_block.binding)
       end
 
       def run_before_each(example)
@@ -260,15 +272,15 @@ module Spec
       end
 
       def run_before_all
-        example_group_instance = new("before(:all)")
+        before_all = new("before(:all)")
         begin
           execute_in_class_hierarchy do |example_group|
-            example_group_instance.eval_each_fail_fast(example_group.before_all_parts)
+            before_all.eval_each_fail_fast(example_group.before_all_parts)
           end
-          return [true, example_group_instance.instance_variable_hash]
+          return [true, before_all.instance_variable_hash]
         rescue Exception => e
-          reporter.failure("before(:all)", e)
-          return [false, example_group_instance.instance_variable_hash]
+          reporter.failure(before_all, e)
+          return [false, before_all.instance_variable_hash]
         end
       end
 
@@ -284,14 +296,14 @@ module Spec
       end
 
       def run_after_all(success, instance_variables)
-        example = new("after(:all)")
-        example.set_instance_variables_from_hash(instance_variables)
+        after_all = new("after(:all)")
+        after_all.set_instance_variables_from_hash(instance_variables)
         execute_in_class_hierarchy(:superclass_first) do |example_group|
-          example.eval_each_fail_slow(example_group.after_all_parts)
+          after_all.eval_each_fail_slow(example_group.after_all_parts)
         end
         return success
       rescue Exception => e
-        reporter.failure("after(:all)", e)
+        reporter.failure(after_all, e)
         return false
       end
 
@@ -339,7 +351,7 @@ module Spec
       end
 
       def is_example_group?(klass)
-        klass.kind_of?(ExampleGroupMethods)
+        Module === klass && klass.kind_of?(ExampleGroupMethods)
       end
 
       def plugin_mock_framework

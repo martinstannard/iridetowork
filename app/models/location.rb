@@ -10,7 +10,7 @@ class Location < ActiveRecord::Base
     def ll
         "#{lat},#{lng}"
     end
-
+    
   protected
   def validate
     logger.debug "Address is success: #{success}, #{full_address}"    

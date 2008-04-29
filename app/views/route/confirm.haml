@@ -15,14 +15,14 @@
         = render :partial => 'location', :object => to, :locals => {:direction => 'to', :f => f}
       = f.submit 'update', {:class => 'button'}
     %div
-      A straight-line distance of
+      As the crow flies, this is a distance of
       %span.distance
         = @route.fmt_distance
       kilometers.
 
     #description
       .subtle
-        Why do you ride to work?
+        Please tell us a little about why you ride to work:
       - form_for rider, :id => rider, :html => { :multipart => true }, :controller => 'rider' do |f|
         = f.text_area :description
         = f.submit 'Done', {:class => 'button'}

@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 
 module Spec
   module Example
-    describe ExampleGroupMethods do
+    describe 'ExampleGroupMethods' do
       it_should_behave_like "sandboxed rspec_options"
       attr_reader :example_group, :result, :reporter
       before(:each) do
@@ -294,6 +294,11 @@ module Spec
           it ".spec_path should expand the passed in :spec_path option passed into the constructor" do
             example_group.spec_path.should == File.expand_path("blah")
           end
+
+          it ".description_options should return all the options passed in" do
+            example_group.description_options.should == {:a => "b", :spec_path => "blah"}
+          end
+
         end
       end
 
@@ -314,6 +319,16 @@ module Spec
             describe(".foobar", "Does something")
           end
           child_example_group.description.should == "ExampleGroup.foobar Does something"
+        end
+        
+        it "should return the class name if nil" do
+          example_group.set_description(nil)
+          example_group.description.should =~ /Class:/
+        end
+        
+        it "should return the class name if nil" do
+          example_group.set_description("")
+          example_group.description.should =~ /Class:/
         end
       end
 
@@ -340,7 +355,7 @@ module Spec
           ]
         end
       end
-      
+
       describe "#described_type" do
         it "should return passed in type" do
           child_example_group = Class.new(example_group) do
@@ -444,20 +459,29 @@ module Spec
 
       describe '#register' do
         it "should add ExampleGroup to set of ExampleGroups to be run" do
-          example_group.register
+          options.example_groups.delete(example_group)
+          options.example_groups.should_not include(example_group)
+          
+          example_group.register {}
           options.example_groups.should include(example_group)
         end
       end
 
       describe '#unregister' do
         before do
-          example_group.register
           options.example_groups.should include(example_group)
         end
 
         it "should remove ExampleGroup from set of ExampleGroups to be run" do
           example_group.unregister
           options.example_groups.should_not include(example_group)
+        end
+      end
+
+      describe "#registration_backtrace" do
+        it "returns the backtrace of where the ExampleGroup was registered" do
+          example_group = Class.new(ExampleGroup)
+          example_group.registration_backtrace.join("\n").should include("#{__FILE__}:#{__LINE__-1}")
         end
       end
     end
