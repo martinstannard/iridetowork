@@ -14,8 +14,8 @@ function initMap(fromId, toId, f_lat, f_lon, t_lat, t_lon, mid_lat, mid_lon) {
     var topRight = new GControlPosition(G_ANCHOR_TOP_RIGHT, new GSize(10,10));
     map.addControl(new GLargeMapControl(), topRight);
     map.addControl(new GOverviewMapControl());
-//    map.openInfoWindow(from, $(fromId).cloneNode(true));
-    addRoute(map, from, to);
+    //    map.openInfoWindow(from, $(fromId).cloneNode(true));
+    addRoute(map, from, to, -1);
     return map;
 }
 
@@ -28,8 +28,19 @@ function createMarker(map, point, nodeId) {
     return marker;
 }
 
-function addRoute(map, from, to) {
+function addRoute(map, from, to, rider) {
     var polyline = new GPolyline([from, to], "#0870C0", 2, 1);
+    if (rider != undefined) {
+        GEvent.addListener(polyline,"click", function(latlng) {
+            
+            var holder = document.createElement('div');
+            holder.innerHTML = 'My name is <a href="/riders/'+ rider.id + '">' 
+                                + rider.name +
+                                '</a>, and iRide<span class=distance>' + rider.distance + ' km</span>ToWork.';
+            holder.setAttribute("id", "holder");
+            map.openInfoWindowHtml(latlng, holder);
+        });
+    }
     map.addOverlay(polyline);
 }
 
@@ -47,7 +58,7 @@ function paint(routes) {
       var route = routes[i];
       var from = new GLatLng(route.from.lat, route.from.lng);
       var to = new GLatLng(route.to.lat, route.to.lng);
-      addRoute(map, from, to);      
+      addRoute(map, from, to, route.rider);      
     }
     return map;
 }

@@ -1,30 +1,9 @@
 - from = @from
 - to = @to
-- mid = @from.midpoint_to @to
+- mid = @mid
 #contentcenter
-  %span.summary
-    .rider
-      = render :partial => 'riders/image', :object => @rider.image
-      = link_to @rider.login, edit_rider_path(@rider)
+  = render :partial => 'riders/info', :object => @rider, :locals => {:from => from, :to => to, :mid => mid}
 
-    .rider{:id => "from"}
-      = from.full_address
-      %span.subtle
-        = from.precision
-    to
-    .rider{:id => "to"}
-      = to.full_address
-      %span.subtle
-        = to.precision
-	
-    %div
-      As the crow flies, this is a distance of
-      %span.distance
-        = @rider.route.fmt_distance
-      kilometers.
-
-    .description
-      = @rider.description
 #contentright
   .map#map_canvas
 

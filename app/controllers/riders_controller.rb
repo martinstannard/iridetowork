@@ -1,7 +1,8 @@
 class RidersController < ApplicationController  
 
   before_filter :find_rider, :except => [:index, :new, :create, :json]
-
+  protect_from_forgery :except => [:info]
+  
   # render new.rhtml
   def new
   end
@@ -58,9 +59,9 @@ class RidersController < ApplicationController
         json = Array.new
         @routes.collect {
           |route| json <<  {:id => route.id,
-                           :rider => {:name => route.rider.login, :id => route.rider_id},
-                           :from =>  {:lat => route.from.lat, :lng => route.from.lng},
-                           :to =>    {:lat => route.to.lat, :lng => route.to.lng}}
+            :rider => {:name => route.rider.login, :id => route.rider_id, :distance => route.fmt_distance},
+            :from =>  {:lat => route.from.lat, :lng => route.from.lng},
+            :to =>    {:lat => route.to.lat, :lng => route.to.lng}}
         }
         render :json => json, :content_type => 'text/javascript', :callback => :paint
       }
@@ -73,6 +74,13 @@ class RidersController < ApplicationController
     logger.debug "Route: #{route}, route.from #{route.from}"
     @from = route.from
     @to = route.to
+    @mid = @from.midpoint_to @to
+  end
+  
+  def info
+    show
+    render :partial => 'riders/info', :object => @rider, 
+      :locals => {:from => @from, :to => @to, :mid => @mid}
   end
 
   def update

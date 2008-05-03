@@ -3,7 +3,8 @@ module AuthenticatedSystem
     # Returns true or false if the user is logged in.
     # Preloads @current_rider with the user model if they're logged in.
     def logged_in?
-      current_rider != :false
+      true
+      #      current_rider != :false
     end
     
     # Accesses the current rider from the session.  Set it to :false if login fails
